@@ -1,0 +1,97 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+    sans-serif;
+
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-card: #1c1c1e;
+  --color-card-elevated: #2c2c2e;
+  --color-muted: #3a3a3c;
+  --color-muted-foreground: #8e8e93;
+  --color-section: #636366;
+  --color-border: #2c2c2e;
+  --color-segment: #3a3a3c;
+  --color-segment-active: #636366;
+  --color-input: #2c2c2e;
+
+  --color-brand: #5b21b6;
+  --color-brand-hover: #4c1d95;
+  --color-brand-active: #3b0764;
+  --color-destructive: #ff453a;
+  --color-destructive-hover: #ff6961;
+
+  --color-accent: #8e8e93;
+  --color-accent-foreground: #000000;
+  --color-switch-on: #8e8e93;
+  --color-slider: #8e8e93;
+
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: dark;
+    height: 100%;
+  }
+
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    user-select: none;
+    color-scheme: dark;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+}
+
+.titlebar-drag {
+  -webkit-app-region: drag;
+  app-region: drag;
+}
+
+.titlebar-no-drag {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+
+[data-tauri-drag-region] {
+  -webkit-app-region: drag;
+  app-region: drag;
+}
+
+html,
+body,
+#root,
+.app-scroll-viewport {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar,
+.app-scroll-viewport::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: transparent !important;
+}

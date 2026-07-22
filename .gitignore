@@ -1,0 +1,13 @@
+node_modules
+dist
+.DS_Store
+*.log
+*.tsbuildinfo
+.env
+.env.*
+.vscode
+.idea
+src-tauri/target
+src-tauri/gen
+out
+release
