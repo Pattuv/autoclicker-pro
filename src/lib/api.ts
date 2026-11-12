@@ -4,7 +4,9 @@ import type { ClickerConfig, EngineState, SetupStatus, ToastPayload } from '@/ty
 
 export const api = {
   getSetupStatus: () => invoke<SetupStatus>('get_setup_status'),
+  promptAccessibility: () => invoke<SetupStatus>('prompt_accessibility_permission'),
   openAccessibility: () => invoke<SetupStatus>('open_accessibility'),
+  resetAccessibility: () => invoke<void>('reset_accessibility'),
   refreshSetup: () => invoke<SetupStatus>('refresh_setup'),
   getConfig: () => invoke<ClickerConfig>('get_config'),
   setConfig: (config: ClickerConfig) => invoke<ClickerConfig>('set_config', { config }),

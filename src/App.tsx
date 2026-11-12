@@ -133,10 +133,9 @@ export default function App(): JSX.Element {
           </div>
         </header>
 
-        <ScrollArea className="titlebar-no-drag">
+        <div className="relative flex min-h-0 flex-1 flex-col">
+          <ScrollArea className="titlebar-no-drag">
           <div className="mx-auto flex max-w-[420px] flex-col gap-5 px-5 pb-8">
-            <SetupGate setup={setup} onSetupChange={setSetup} />
-
             <div className="pt-2 text-center">
               <p className="text-[56px] font-semibold leading-none tracking-tight tabular-nums">
                 {isHold && engine.status === 'running'
@@ -320,7 +319,9 @@ export default function App(): JSX.Element {
               </Row>
             </Section>
           </div>
-        </ScrollArea>
+          </ScrollArea>
+          <SetupGate setup={setup} onSetupChange={setSetup} />
+        </div>
       </div>
     </ToastProvider>
   )

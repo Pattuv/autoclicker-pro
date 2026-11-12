@@ -28,10 +28,31 @@ fn get_setup_status(state: State<'_, AppState>) -> SetupStatus {
 }
 
 #[tauri::command]
+fn prompt_accessibility_permission(state: State<'_, AppState>) -> SetupStatus {
+    prompt_accessibility();
+    setup_status(&state.engine)
+}
+
+#[tauri::command]
 fn open_accessibility(state: State<'_, AppState>) -> Result<SetupStatus, String> {
+    // Register this exact binary with TCC, then reveal the switch.
     prompt_accessibility();
     open_accessibility_settings()?;
     Ok(setup_status(&state.engine))
+}
+
+#[tauri::command]
+fn reset_accessibility(app: AppHandle) -> Result<(), String> {
+    // Ad-hoc and re-signed builds change the cdhash macOS stored for this bundle id.
+    // The Accessibility switch can look on while still authorizing the previous binary.
+    let status = std::process::Command::new("/usr/bin/tccutil")
+        .args(["reset", "Accessibility", &app.config().identifier])
+        .status()
+        .map_err(|err| err.to_string())?;
+    if !status.success() {
+        return Err(format!("Could not reset Accessibility permission ({status})"));
+    }
+    app.restart();
 }
 
 #[tauri::command]
@@ -155,7 +176,9 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             get_setup_status,
+            prompt_accessibility_permission,
             open_accessibility,
+            reset_accessibility,
             refresh_setup,
             get_config,
             set_config,
